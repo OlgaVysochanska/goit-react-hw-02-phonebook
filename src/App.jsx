@@ -1,11 +1,13 @@
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
 
+import { ContactForm } from './components/ContactForm/ContactForm';
+import { Filter } from './components/Filter/Filter';
+import { ContactList } from './components/ContactList/ContactList';
+
 export class App extends Component {
   state = {
     contacts: [],
-    name: '',
-    number: '',
     filter: ''
   };
 
@@ -18,8 +20,8 @@ export class App extends Component {
     this.setState(({ contacts }) => ({ contacts: [contact, ...contacts] }));
   }
 
-  changeFilter = e => {
-    this.setState({ filter: e.currentTarget.value });
+  onChangeFilter = e => {
+    this.setState({ filter: e.target.value });
   };
 
   getVisibleContacts = () => {
@@ -37,45 +39,11 @@ export class App extends Component {
     return (
       <>
         <h1>Phonebook</h1>
-        <form onSubmit={this.onHandleSubmit}>
-          <label>
-            Name
-            <input
-              type="text"
-              name="name"
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-              required
-            />
-          </label>
-          <label>
-            Number
-            <input
-              type="tel"
-              name="number"
-              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-              required
-            />
-          </label>
-          <button>Add contact</button>
-        </form>
+        <ContactForm onHandleSubmit={this.onHandleSubmit} />
 
         <h2>Contacts</h2>
-        <label>
-          Find contacts by name
-          <input type="text" value={filter} onChange={this.changeFilter}/>
-        </label>
-        <ul>
-          {visibleContacts.map(({ id, name, number }) => {
-              return (
-                <li key={id}>
-                  <span>{name}:</span>
-                  <span>{number}</span>
-                </li>
-              );
-            })}
-        </ul>
+        <Filter value={filter} onChangeFilter={this.onChangeFilter} />
+        <ContactList contacts={visibleContacts} />
       </>
     );
   }
