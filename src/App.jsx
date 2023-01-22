@@ -11,19 +11,22 @@ export class App extends Component {
     filter: '',
   };
 
-  onHandleSubmit = e => {
-    e.preventDefault();
-    const name = e.target.elements.name.value;
+  onHandleSubmit = data => {
+    const name = data.name;
     if (this.state.contacts.find(contact => contact.name === name)) {
       alert(`${name} is already in contacts`);
       return;
     }
-    const number = e.target.elements.number.value;
+    const number = data.number;
     const id = nanoid();
     const contact = { id, name, number };
     this.setState(({ contacts }) => ({ contacts: [contact, ...contacts] }));
-    e.target.elements.name.value = '';
-    e.target.elements.number.value = '';
+    console.log(data);
+
+    // e.preventDefault();
+
+    // e.target.elements.name.value = '';
+    // e.target.elements.number.value = '';
   };
 
   onChangeFilter = e => {

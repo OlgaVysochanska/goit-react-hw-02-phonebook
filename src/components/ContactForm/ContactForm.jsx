@@ -2,11 +2,22 @@ import PropTypes from 'prop-types';
 import styles from './ContactForm.module.css';
 
 export const ContactForm = ({ onHandleSubmit }) => {
+  let inputValues = {
+    name: '',
+    number: '',
+  };
+  const onChangingInput = e => {
+    const objectKey = e.target.name;
+    inputValues[objectKey] = e.target.value;
+    return;
+  };
+
   return (
-    <form className={styles.form} onSubmit={onHandleSubmit}>
+    <form className={styles.form} onSubmit={() => onHandleSubmit(inputValues)}>
       <label className={styles.inputBlock}>
         Name
         <input
+          onChange={onChangingInput}
           className={styles.input}
           type="text"
           name="name"
@@ -18,6 +29,7 @@ export const ContactForm = ({ onHandleSubmit }) => {
       <label className={styles.inputBlock}>
         Number
         <input
+          onChange={onChangingInput}
           className={styles.input}
           type="tel"
           name="number"
