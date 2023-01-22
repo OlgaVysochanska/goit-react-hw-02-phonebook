@@ -21,13 +21,6 @@ export class App extends Component {
     const id = nanoid();
     const contact = { id, name, number };
     this.setState(({ contacts }) => ({ contacts: [contact, ...contacts] }));
-    console.log( data );
-    
-
-    // e.preventDefault();
-
-    // e.target.elements.name.value = '';
-    // e.target.elements.number.value = '';
   };
 
   onChangeFilter = e => {
@@ -48,7 +41,7 @@ export class App extends Component {
     }));
   };
 
-  render () {
+  render() {
     const { filter } = this.state;
     const visibleContacts = this.getVisibleContacts();
     return (

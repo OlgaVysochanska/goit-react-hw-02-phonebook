@@ -13,7 +13,15 @@ export const ContactForm = ({ onHandleSubmit }) => {
   };
 
   return (
-    <form className={styles.form} onSubmit={() => onHandleSubmit(inputValues)}>
+    <form
+      className={styles.form}
+      onSubmit={e => {
+        e.preventDefault();
+        onHandleSubmit(inputValues);
+        e.target.elements.name.value = '';
+        e.target.elements.number.value = '';
+      }}
+    >
       <label className={styles.inputBlock}>
         Name
         <input
