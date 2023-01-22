@@ -6,10 +6,16 @@ export const ContactForm = ({ onHandleSubmit }) => {
     name: '',
     number: '',
   };
+
   const onChangingInput = e => {
     const objectKey = e.target.name;
     inputValues[objectKey] = e.target.value;
     return;
+  };
+
+  const clearForm = e => {
+    e.target.elements.name.value = '';
+    e.target.elements.number.value = '';
   };
 
   return (
@@ -18,8 +24,7 @@ export const ContactForm = ({ onHandleSubmit }) => {
       onSubmit={e => {
         e.preventDefault();
         onHandleSubmit(inputValues);
-        e.target.elements.name.value = '';
-        e.target.elements.number.value = '';
+        clearForm(e);
       }}
     >
       <label className={styles.inputBlock}>
